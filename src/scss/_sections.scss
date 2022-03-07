@@ -1,0 +1,14 @@
+.gif-component-div {
+  //center items
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: 50px;
+
+  //center in window
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
