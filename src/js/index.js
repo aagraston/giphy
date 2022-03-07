@@ -4,6 +4,7 @@ import '../scss/app.scss'
 const img = document.querySelector('img')
 const inputText = document.querySelector('#input-search-gif')
 const inputSubmit = document.querySelector('#input-submit-search')
+const errorDisplay = document.querySelector('#error-msg')
 
 inputSubmit.addEventListener('click', performSearch)
 
@@ -22,17 +23,30 @@ function performSearch(e) {
 function calculateQuery(searchString) {
   const newString = queryStart + searchString
   queryFull = newString
-  console.log(queryFull)
 }
 
 function searchImage() {
   fetch(queryFull, { mode: 'cors' })
     .then((response) => response.json())
     .then((response) => {
+      displaySuccess()
       displayImage(response.data.images.original.url)
+    })
+    .catch((error) => {
+      img.src = '#'
+      displayError()
+      console.log(error)
     })
 }
 
 function displayImage(imageUrl) {
   img.src = imageUrl
+}
+
+function displayError() {
+  errorDisplay.innerHTML = 'Something Went Wrong!'
+}
+
+function displaySuccess() {
+  errorDisplay.innerHTML = ''
 }
