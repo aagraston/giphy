@@ -25,18 +25,18 @@ function calculateQuery(searchString) {
   queryFull = newString
 }
 
-function searchImage() {
-  fetch(queryFull, { mode: 'cors' })
-    .then((response) => response.json())
-    .then((response) => {
-      displaySuccess()
-      displayImage(response.data.images.original.url)
-    })
-    .catch((error) => {
-      img.src = '#'
-      displayError()
-      console.log(error)
-    })
+async function searchImage() {
+  try {
+    const response = await fetch(queryFull, { mode: 'cors' })
+    const imageData = await response.json()
+
+    displaySuccess()
+    displayImage(imageData.data.images.original.url)
+  } catch (error) {
+    img.src = '#'
+    displayError()
+    console.log(error)
+  }
 }
 
 function displayImage(imageUrl) {
